@@ -1,0 +1,52 @@
+{% extends "music/base.html" %}
+{% block title %}Album Details{% endblock %}
+{% block my_body %}
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <img class="img-responsive" src=" {{album.album_logo.url}} " alt="Cant display image">
+                    <h1>{{album.album_title}}</h1>
+                    <h3>{{album.artist}}</h3>
+                    <a href="{% url 'music:update-album' album.id %}" type="button" class="btn btn-success">Update Album</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-offset-2"></div>
+
+         <div class="col-sm-7">
+             <div class="row">
+               &nbsp&nbsp&nbsp&nbsp <a href="#" type="button" class="btn btn-success">View All</a>&nbsp&nbsp
+                 <a href="#">Add New Song</a><br><br>
+             </div>
+             <div class="panel panel-default">
+                <div class="panel-body">
+                    <h1>All Songs</h1>
+                        <table class="panel-body specialCollapse">
+                            <table class="table table-bordered table-hover goup">
+                                <tr><th>Title</th><th>Audio File</th><th>Favorite</th><th>Actions</th></tr>
+                            </table>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+          <!-- ->  {% if error_mssge %}
+                <p><strong>{{error_mssge}}</strong></p>
+            {% endif %}
+            <form action="{% url 'music:favorite' album.id %}" method="post">
+            {% csrf_token %}
+                {%for song in album.song_set.all %}
+                    <input type="radio" value="{{song.id}}" id="song{{forloop.counter}}" name="song">
+                    <label for="song{{forloop.counter}}">
+                    {{song.song_title}}
+                    {% if song.is_favorite %}
+                        <img src="http://i.imgur.com/b9b13Rd.png">
+                    {% endif %}
+                    </label><br>
+                {% endfor %}
+                <input type="submit" value="Favorite">
+            </form>
+
