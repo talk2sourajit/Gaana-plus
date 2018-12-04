@@ -20,6 +20,10 @@ class DetailView(generic.DetailView):
     model=Album
     template_name = 'music\details.html'
 
+class Create_Song(CreateView):
+    model = Song
+    fields = ['song_title']
+
 class Create_Album(CreateView):
     model = Album
     fields = ['artist','album_title','genre','album_logo']

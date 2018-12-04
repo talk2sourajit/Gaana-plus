@@ -21,5 +21,9 @@ class Song(models.Model):
     song_title=models.CharField(max_length=250)
     #is_favorite=models.BooleanField(default=False)
 
+    def get_absolute_url(self):
+        #album_id = Album.objects.get(self.album=Album.album_title).id  # Experiment with album_title, album=album
+        return reverse('music:detail',kwargs={'pk':self.album.primary_key})
+
     def __str__(self):
         return self.song_title
