@@ -1,6 +1,9 @@
 {% extends "music/base.html" %}
 
 {% block my_body %}
+        {% if error_mssge %}
+           <p><strong>{{error_mssge}}</strong></p>
+        {% endif %}
         {% if all_albums %}
         <ul>
             {% for album in all_albums %}
@@ -26,7 +29,14 @@
                                 </form>
                             </div>
                             <div class="col-sm-1">
-                                <a href="#" type="button" class="btn btn-default"><span class="glyphicon glyphicon-star-empty"></span></a>
+                                <a href="{% url 'music:fav_album' album.id %}" class="btn btn-default">
+                                        {% if album.album_is_fav %}
+                                            <span class="glyphicon glyphicon-star"></span>
+                                        {% else %}
+                                            <span class="glyphicon glyphicon-star-empty"></span>
+                                        {% endif %}
+                                </a>
+
                             </div>
                         </div>
 

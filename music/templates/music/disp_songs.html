@@ -1,0 +1,34 @@
+{% extends "music/base.html" %}
+{% block title %}All Songs{% endblock %}
+
+{% block my_body %}
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                        <h1>All Songs</h1>
+                        <table class="panel-body specialCollapse">
+                            <table class="table table-striped table-bordered table-hover goup">
+                                <thead>
+                                    <tr><th class="text-center">Sl.No.</th><th class="text-center">Album</th><th class="text-center">Artist</th><th class="text-center">Song</th><th class="text-center">Actions</th></tr>
+                                </thead>
+                                <tbody>
+                                        {% for album in all_albums %}
+                                            {% for song in album.song_set.all %}
+                                            <tr>
+                                                <td align="center">{{forloop.counter}}</td>
+                                                <td align="center">{{album.album_title}}</td>
+                                                <td align="center">{{album.artist}}</td>
+                                                <td align="center">{{song.song_title}}</td>
+                                                <td align="center">None</td>
+                                            </tr>
+                                            {% endfor %}
+                                        {% endfor %}
+
+                                </tbody>
+                                </table>
+                         </table>
+                </div>
+            </div>
+
+{% endblock %}
