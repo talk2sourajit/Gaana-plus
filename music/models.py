@@ -1,11 +1,11 @@
 from django.db import models
 from django.urls import reverse
-from django.shortcuts import redirect
-from django.http import HttpResponseRedirect
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Album(models.Model):
+    user = models.ForeignKey(User, default=1,on_delete=models.CASCADE)
     artist=models.CharField(max_length=250)
     album_title=models.CharField(max_length=500)
     genre=models.CharField(max_length=100)
@@ -13,7 +13,7 @@ class Album(models.Model):
     album_is_fav=models.BooleanField(default=False)
 
     def get_absolute_url(self):
-        return reverse('music:detail',kwargs={'pk':self.pk})
+        return reverse('music:detail',kwargs={'album_id':self.pk})
 
     def __str__(self):
         return self.album_title + "-" + self.artist

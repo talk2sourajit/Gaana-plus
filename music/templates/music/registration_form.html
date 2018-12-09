@@ -1,24 +1,28 @@
-{% extends 'music/base.html' %}
+{% extends 'music/files_base.html' %}
 {% block title %}Registration{% endblock %}
 {% block my_body %}
 
 <div class="row">
+    <div class="container-fluid">
+        <div class="col-sm-12 col-md-7">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h1>Create a new Account</h1>
+                    <form class="form-horizontal" action=" " method="post">
+                        {% csrf_token %}
+                        {% include 'music/form-template.html' %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
 
-    <div class="col-sm-12 col-md-7">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <h1>Create a new Account</h1>
-                <form class="form-horizontal" action=" " method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% include 'music/form-template.html' %}
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">Submit</button>
 
-                            <button type="submit" class="btn btn-success">Submit</button>
-
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    Already have an account? <a href="{% url 'music:user-login' %}">Click here</a> to login.
+                </div>
             </div>
         </div>
     </div>

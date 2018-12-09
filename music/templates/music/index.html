@@ -4,9 +4,11 @@
         {% if error_mssge %}
            <p><strong>{{error_mssge}}</strong></p>
         {% endif %}
-        {% if all_albums %}
+        {% if albums %}
         <ul>
-            {% for album in all_albums %}
+            <h1>{{user.username}}'s Album</h1>
+             <!-- If user searches and there are albums -->
+            {% for album in albums %}
             <div class="col-sm-4">
                 <div class="panel panel-default">
                     <div class="panel-body">
@@ -29,7 +31,7 @@
                                 </form>
                             </div>
                             <div class="col-sm-1">
-                                <a href="{% url 'music:fav_album' album.id %}" class="btn btn-default">
+                                <a href="{% url 'music:fav-album' album.id %}" class="btn btn-default">
                                         {% if album.album_is_fav %}
                                             <span class="glyphicon glyphicon-star"></span>
                                         {% else %}
@@ -47,9 +49,34 @@
             {% endfor %}
         </ul>
 
-        {% else %}
-            <h3>You dont have any albums</h3>
-
         {% endif %}
 
+        <!-- If user searches and there are songs -->
+    {% if songs %}
+         <div class="panel panel-default">
+                <div class="panel-body">
+                        <table class="panel-body specialCollapse">
+                            <table class="table table-striped table-bordered table-hover goup">
+                                <thead>
+                                    <tr><th class="text-center">Sl.No.</th><th class="text-center">Album</th><th class="text-center">Artist</th><th class="text-center">Song</th><th class="text-center">Actions</th></tr>
+                                </thead>
+                                <tbody>
+                                        {% for song in songs %}
+                                            <tr>
+                                                <td align="center">{{forloop.counter}}</td>
+                                                <td align="center">{{song.album.album_title}}</td>
+                                                <td align="center">{{song.album.artist}}</td>
+                                                <td align="center">{{song.song_title}}</td>
+                                                <td align="center">None</td>
+                                            </tr>
+
+                                        {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </table>
+                </div>
+            </div>
+
+    {% endif %}
 {% endblock %}
