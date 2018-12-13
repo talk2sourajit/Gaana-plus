@@ -18,5 +18,5 @@ class AddAlbumForm(ModelForm):
 class AddSongForm(ModelForm):
     class Meta:
         model=Song
-        fields=['song_title']
+        fields=['song_title','audio_file']
 

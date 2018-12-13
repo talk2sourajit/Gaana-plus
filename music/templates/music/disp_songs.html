@@ -6,8 +6,9 @@
          <div class="panel panel-default">
                 <div class="panel-body">
                     {% if error_mssge %}
-                          <h3>{{error_mssge}}</h3>
-                    {% else %}
+                        <p><strong>{{error_mssge}}</strong></p>
+                    {% endif %}
+
                         <h1>All Songs</h1>
                         <table class="panel-body specialCollapse">
                             <table class="table table-striped table-bordered table-hover goup">
@@ -22,7 +23,14 @@
                                                 <td align="center">{{album.album_title}}</td>
                                                 <td align="center">{{album.artist}}</td>
                                                 <td align="center">{{song.song_title}}</td>
-                                                <td align="center">None</td>
+                                                <td align="center">
+                                                    <a target="_blank" href="{{ song.audio_file.url }}">
+                                                        <button type="button" class="btn btn-success btn-xs">
+                                                            <span class="glyphicon glyphicon-play"></span>&nbsp; Play
+                                                        </button>
+                                                    </a>
+                                                </td>
+
                                             </tr>
                                             {% endfor %}
                                         {% endfor %}
@@ -30,8 +38,8 @@
                                 </tbody>
                                 </table>
                          </table>
-                    {% endif %}
                 </div>
             </div>
+     </div>
 
 {% endblock %}

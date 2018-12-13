@@ -67,7 +67,12 @@
                                                 <td align="center">{{song.album.album_title}}</td>
                                                 <td align="center">{{song.album.artist}}</td>
                                                 <td align="center">{{song.song_title}}</td>
-                                                <td align="center">None</td>
+                                                <td align="center"> <a target="_blank" href="{{ song.audio_file.url }}">
+                                                                     <button type="button" class="btn btn-success btn-xs">
+                                                                        <span class="glyphicon glyphicon-play"></span>&nbsp; Play
+                                                                     </button>
+                                                                    </a>
+                                                </td>
                                             </tr>
 
                                         {% endfor %}

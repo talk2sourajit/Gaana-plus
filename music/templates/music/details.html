@@ -32,7 +32,12 @@
                                         {% for song in album.song_set.all %}
                                         <tr>
                                             <td align="center">{{song.song_title}}</td>
-                                            <td align="center">None</td>
+                                            <td align="center"> <a target="_blank" href="{{ song.audio_file.url }}">
+                                                                       <button type="button" class="btn btn-success btn-xs">
+                                                                            <span class="glyphicon glyphicon-play"></span>&nbsp; Play&nbsp
+                                                                       </button>
+                                                            </a>
+                                            </td>
                                             <td align="center"><a href="{% url 'music:fav-song' album.id song.id %}">
                                                                {% if song.song_is_fav %}
                                                                    <span class="glyphicon glyphicon-star"></span>
@@ -42,12 +47,12 @@
                                                                </a>
                                             </td>
                                             <td align="center">
-                                                <form action="{% url 'music:delete-song' album.id song.id %}" method="post">
-                                                    {% csrf_token %}
-                                                    <input type="hidden" name="song_id" value="{{song.id}}">
-                                                    <button type="submit" class="btn btn-danger">
-                                                        <span class="glyphicon glyphicon-trash"></span>
-                                                    </button>
+                                                <form class="form-inline" action="{% url 'music:delete-song' album.id song.id %}" method="post">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="song_id" value="{{song.id}}">
+                                                                <button type="submit" class="btn btn-danger">
+                                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                                </button>
                                                 </form>
                                             </td>
                                         </tr>
@@ -64,20 +69,4 @@
         </div>
     </div>
 {% endblock %}
-          <!-- ->  {% if error_mssge %}
-                <p><strong>{{error_mssge}}</strong></p>
-            {% endif %}
-            <form action="{% url 'music:favorite' album.id %}" method="post">
-            {% csrf_token %}
-                {%for song in album.song_set.all %}
-                    <input type="radio" value="{{song.id}}" id="song{{forloop.counter}}" name="song">
-                    <label for="song{{forloop.counter}}">
-                    {{song.song_title}}
-                    {% if song.is_favorite %}
-                        <img src="http://i.imgur.com/b9b13Rd.png">
-                    {% endif %}
-                    </label><br>
-                {% endfor %}
-                <input type="submit" value="Favorite">
-            </form>
 

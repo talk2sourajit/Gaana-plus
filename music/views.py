@@ -11,6 +11,10 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 
+AUDIO_FILE_TYPES = ['wav', 'mp3', 'ogg']
+IMAGE_FILE_TYPES = ['png', 'jpg', 'jpeg']
+
+
 def view_songs(request):
     if not request.user.is_authenticated:
         return render(request,'music/login.html')
@@ -49,6 +53,11 @@ def create_album(request):
             added_album=form.save(commit=False)
             added_album.user=request.user
             added_album.album_logo=request.FILES['album_logo']
+            file_type=added_album.album_logo.url.split('.')[-1]
+            file_type=file_type.lower()
+            if file_type not in IMAGE_FILE_TYPES:
+                return render(request,'music/album_form.html',{'form':form,'error_mssge':"Image file must be PNG, JPG, or JPEG"})
+
             added_album.save()
             return render(request,'music/details.html',{'album':added_album})
 
@@ -118,7 +127,7 @@ def fav_album(request,album_id):
 
 def add_song(request,album_id=None):
     album=get_object_or_404(Album,pk=album_id)
-    form=AddSongForm(request.POST or None)
+    form=AddSongForm(request.POST or None,request.FILES or None)
     if form.is_valid():
         album_songs=album.song_set.all()
         for song in album_songs:
@@ -127,6 +136,12 @@ def add_song(request,album_id=None):
 
         added_song=form.save(commit=False)
         added_song.album=album
+        added_song.audio_file=request.FILES['audio_file']
+        file_type=added_song.audio_file.url.split('.')[-1]
+        file_type=file_type.lower()
+        if file_type not in AUDIO_FILE_TYPES:
+            return render(request,'music/song_form.html',{'album':album,'form':form,'error_mssge':"Audio file must be WAV, MP3, or OGG"})
+
         added_song.save()
         return render(request, 'music/details.html', {'album': album})
 
